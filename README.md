@@ -1,5 +1,5 @@
 # MiBlog
-Tercera Entrega Coder
+TuPrimeraPagina+Cubelli
 -----
 # Mi Primer Blog con Django (App: Blog1)
 
