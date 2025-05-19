@@ -1,0 +1,26 @@
+<!-- Blog1/templates/Blog1/home.html -->
+{% extends 'Blog1/base.html' %}
+
+{% block title %}Inicio - Mi Blog{% endblock %}
+
+{% block content %}
+    <h1>Últimos Posts</h1>
+
+    {% if posts %}
+        {% for post in posts %}
+            <article class="post">
+                <h2><a href="{% url 'Blog1:detalle_post' post.pk %}">{{ post.titulo }}</a></h2>
+                <p class="post-meta">
+                    Publicado por {{ post.autor.nombre }}
+                    {% if post.categoria %} en {{ post.categoria.nombre }} {% else %} en Sin categoría {% endif %}
+                    el {{ post.fecha_publicacion|date:"d M Y, H:i" }}
+                </p>
+                <p>{{ post.contenido|truncatewords:30 }}</p>
+                <a href="{% url 'Blog1:detalle_post' post.pk %}">Leer más...</a>
+            </article>
+        {% endfor %}
+    {% else %}
+        <p>No hay posts disponibles.</p>
+        <p><a href="{% url 'Blog1:crear_post' %}">¡Crea el primer post!</a></p>
+    {% endif %}
+{% endblock %}

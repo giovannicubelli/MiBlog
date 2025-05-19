@@ -1,0 +1,14 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Lista de Autores</title>
+</head>
+<body>
+    <h1>Lista de Autores</h1>
+    <ul>
+        {% for autor in autores %}
+            <li>{{ autor.nombre }}</li>
+        {% endfor %}
+    </ul>
+</body>     
+</html>

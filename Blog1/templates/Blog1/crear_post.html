@@ -1,0 +1,15 @@
+<!-- Blog1/templates/Blog1/crear_post.html -->
+{% extends 'Blog1/base.html' %}
+
+{% block title %}Nuevo Post{% endblock %}
+
+{% block content %}
+    <h1>Crear Nuevo Post</h1>
+    <form method="post"> {# Si añades ImageField, usa enctype="multipart/form-data" #}
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit">Publicar Post</button>
+    </form>
+    <br>
+    <a href="{% url 'Blog1:home' %}">Volver al inicio</a>
+{% endblock %}

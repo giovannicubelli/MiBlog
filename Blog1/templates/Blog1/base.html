@@ -1,0 +1,55 @@
+<!-- Blog1/templates/Blog1/base.html -->
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}Mi Blog{% endblock %}</title>
+    <style>
+        body { font-family: sans-serif; margin: 0; padding: 0; background-color: #f4f4f4; color: #333; }
+        header { background-color: #333; color: #fff; padding: 1em 0; text-align: center; }
+        nav { background-color: #444; padding: 0.5em; text-align: center; }
+        nav a { color: white; margin: 0 15px; text-decoration: none; }
+        nav a:hover { text-decoration: underline; }
+        .container { width: 80%; margin: 20px auto; background-color: #fff; padding: 20px; box-shadow: 0 0 10px rgba(0,0,0,0.1); }
+        .post { border-bottom: 1px solid #eee; padding-bottom: 15px; margin-bottom: 15px; }
+        .post:last-child { border-bottom: none; }
+        .post h2 a { color: #333; text-decoration: none; }
+        .post h2 a:hover { color: #555; }
+        .post-meta { font-size: 0.9em; color: #777; }
+        form p { margin-bottom: 10px; }
+        form label { display: block; margin-bottom: 5px; }
+        form input[type="text"], form input[type="email"], form textarea, form select {
+            width: calc(100% - 22px); padding: 10px; margin-bottom: 10px; border: 1px solid #ddd; border-radius: 4px;
+        }
+        form button { background-color: #5cb85c; color: white; padding: 10px 15px; border: none; border-radius: 4px; cursor: pointer; }
+        form button:hover { background-color: #4cae4c; }
+        .search-form { margin-bottom: 20px; }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Mi Blog con Django</h1>
+    </header>
+    <nav>
+        {# CAMBIOS PRINCIPALES AQUÍ: Usar el namespace 'Blog1' #}
+        <a href="{% url 'Blog1:home' %}">Inicio</a>
+        <a href="{% url 'Blog1:crear_autor' %}">Nuevo Autor</a>
+        <a href="{% url 'Blog1:crear_categoria' %}">Nueva Categoría</a>
+        <a href="{% url 'Blog1:crear_post' %}">Nuevo Post</a>
+        <a href="{% url 'Blog1:buscar_posts' %}">Buscar Posts</a>
+        {% if user.is_authenticated %}
+            <a href="{% url 'admin:index' %}">Admin</a> {# 'admin:index' es correcto y no cambia #}
+        {% endif %}
+    </nav>
+    <div class="container">
+        {% block content %}
+        {% endblock %}
+    </div>
+    <footer>
+        <p style="text-align:center; padding: 20px; background-color: #333; color: #fff; margin-top:20px;">
+            © {% now "Y" %} Mi Blog. Todos los derechos reservados.
+        </p>
+    </footer>
+</body>
+</html>

@@ -1,0 +1,25 @@
+<!-- Blog1/templates/Blog1/detalle_post.html -->
+{% extends 'Blog1/base.html' %}
+
+{% block title %}{{ post.titulo }} - Mi Blog{% endblock %}
+
+{% block content %}
+    <article class="post-detail">
+        <h1>{{ post.titulo }}</h1>
+        <p class="post-meta">
+            Publicado por {{ post.autor.nombre }}
+            {% if post.categoria %} en {{ post.categoria.nombre }} {% endif %}
+            el {{ post.fecha_publicacion|date:"d F Y, H:i" }}
+        </p>
+        {# Si tienes un campo imagen en tu modelo Post:
+        {% if post.imagen %}
+            <img src="{{ post.imagen.url }}" alt="{{ post.titulo }}" style="max-width:100%; height:auto; margin-bottom:20px;">
+        {% endif %}
+        #}
+        <div class="post-content">
+            {{ post.contenido|linebreaksbr }}
+        </div>
+    </article>
+    <br>
+    <a href="{% url 'Blog1:home' %}">Volver a la lista de posts</a>
+{% endblock %}

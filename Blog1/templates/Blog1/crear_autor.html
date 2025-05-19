@@ -1,0 +1,15 @@
+<!-- Blog1/templates/Blog1/crear_autor.html -->
+{% extends 'Blog1/base.html' %}
+
+{% block title %}Nuevo Autor{% endblock %}
+
+{% block content %}
+    <h1>Crear Nuevo Autor</h1>
+    <form method="post">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit">Guardar Autor</button>
+    </form>
+    <br>
+    <a href="{% url 'Blog1:home' %}">Volver al inicio</a>
+{% endblock %}

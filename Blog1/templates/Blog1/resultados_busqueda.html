@@ -1,0 +1,33 @@
+<!-- Blog1/templates/Blog1/resultados_busqueda.html -->
+{% extends 'Blog1/base.html' %}
+
+{% block title %}Resultados de Búsqueda{% endblock %}
+
+{% block content %}
+    <h1>Buscar Posts</h1>
+    <form method="get" action="{% url 'Blog1:buscar_posts' %}" class="search-form">
+        {{ busqueda_form.as_p }}
+        <button type="submit">Buscar</button>
+    </form>
+
+    {% if posts_encontrados %}
+        <h2>Resultados para "{{ termino_buscado|default_if_none:request.GET.termino_busqueda|default:'' }}":</h2>
+        {% for post in posts_encontrados %}
+            <article class="post">
+                 <h2><a href="{% url 'Blog1:detalle_post' post.pk %}">{{ post.titulo }}</a></h2>
+                <p class="post-meta">
+                    Por {{ post.autor.nombre }}
+                    {% if post.categoria %} en {{ post.categoria.nombre }} {% else %} en Sin categoría {% endif %}
+                    el {{ post.fecha_publicacion|date:"d M Y, H:i" }}
+                </p>
+                <p>{{ post.contenido|truncatewords:30 }}</p>
+            </article>
+        {% endfor %}
+    {% elif termino_buscado or request.GET.termino_busqueda %}
+        <p>No se encontraron posts con el término "{{ termino_buscado|default_if_none:request.GET.termino_busqueda|default:'' }}".</p>
+    {% else %}
+         <p>Ingresa un término para buscar.</p>
+    {% endif %}
+    <br>
+    <a href="{% url 'Blog1:home' %}">Volver al inicio</a>
+{% endblock %}
